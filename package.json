@@ -1,0 +1,31 @@
+{
+  "name": "nucamp-project",
+  "version": "1.0.0",
+  "description": "Project site for Nucamp web development bootcamp.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run lite",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flyin-wheels/nucamp-project.git"
+  },
+  "author": "James Traub",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "bugs": {
+    "url": "https://github.com/flyin-wheels/nucamp-project/issues"
+  },
+  "homepage": "https://github.com/flyin-wheels/nucamp-project#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "bootstrap-social": "^5.1.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}
