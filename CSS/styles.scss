@@ -1,0 +1,261 @@
+$t: transparent;
+$br: #7d6243;
+$y: #ffda4a;
+$g: #9ecb62;
+$r: #da3743;
+$p: #007538;
+$b: #deca91;
+
+@function shiftShadow($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 20 {
+    $val: #{$val}, #{$i * -7.5px} #{(($i * $i)/-30) * $offset} 0px $br;
+  }
+  @return $val;
+}
+
+@function shiftShadow2($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 24 {
+    $val: #{$val},
+      #{$i * -5px} #{(($i * $i)/-40) * ($offset/2) - 30px} 0px -10px $y;
+  }
+  @return $val;
+}
+
+@function shiftShadow3($offset) {
+  $val: "10px 20px 0px #9ecb62";
+  @for $i from 1 through 24 {
+    $val: #{$val},
+      #{$i * -5px} #{(($i * $i)/-50) * ($offset/1.5) + 30px} 0px -5px $g;
+  }
+  @return $val;
+}
+
+@function shiftShadow4($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 17 {
+    $val: #{$val},
+      #{($i * -5px) -
+        15px}
+        #{(($i * $i)/-30) *
+        ($offset/1.25) -
+        50px}
+        0px -10px
+        $r;
+  }
+  @return $val;
+}
+
+@function shiftShadow5($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 12 {
+    $val: #{$val},
+      #{($i * -5px) -
+        30px}
+        #{(($i * $i)/-40) *
+        ($offset/1.25) -
+        50px}
+        0px -15px
+        $p;
+  }
+  @return $val;
+}
+
+@function shiftShadow6($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 20 {
+    $val: #{$val},
+      #{$i * -7px} #{(($i * $i)/-50) * $offset - 70px} 0px 10px lighten($b, 10%);
+  }
+  @return $val;
+}
+
+@function shiftShadow7($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 20 {
+    $val: #{$val},
+      #{$i * -7px} #{(($i * $i)/-50) * $offset + 70px} 0px -5px lighten($b, 10%);
+  }
+  @return $val;
+}
+
+@function shiftShadow8($offset) {
+  $val: "0px 0px 0px";
+  @for $i from 1 through 20 {
+    $val: #{$val},
+      #{$i * -6.5px} #{(($i * $i)/-60) * $offset + 90px} 0px 7.5px $b;
+  }
+  @return $val;
+}
+
+@mixin topbun($offset) {
+  box-shadow: shiftShadow($offset), shiftShadow2($offset), shiftShadow5($offset),
+    shiftShadow7($offset), shiftShadow8($offset);
+}
+
+@mixin bottombun($offset) {
+  box-shadow: shiftShadow3($offset), shiftShadow4($offset),
+    shiftShadow6($offset);
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  overflow: hidden;
+  background: darken(#e0fdff, 10%);
+  perspective: 50vmin;
+  transform-style: preserve-3d;
+  &:before,
+  &:after {
+    transform-style: preserve-3d;
+    content: "";
+    position: absolute;
+    width: 300vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    --dir: 1200px;
+    z-index: -1;
+    --angle: -90deg;
+    background: linear-gradient(var(--angle), darken(#e0fdff, 10%), $t),
+      radial-gradient(circle at center, #fff 50px, $t 50px) 0px 50% / 600px
+        100vh,
+      radial-gradient(circle at center, #fff 40px, $t 40px) 50px
+        calc(50% + 20px) / 600px 100vh,
+      radial-gradient(circle at center, #fff 30px, $t 30px) -50px calc(
+          50% + 30px
+        ) / 600px 100vh,
+      radial-gradient(circle at center, #fff 50px, $t 50px) 0px 50% / 600px
+        100vh,
+      radial-gradient(circle at center, #fff 40px, $t 40px) 50px
+        calc(50% + 20px) / 600px 100vh,
+      radial-gradient(circle at center, #fff 30px, $t 30px) -50px calc(
+          50% + 30px
+        ) / 600px 100vh;
+    transform-origin: left;
+    transform: rotateY(80deg);
+    animation: flight 1.5s linear infinite;
+    @keyframes flight {
+      from {
+        background-position: 50% 50%, 0px calc(50% - 150px),
+          50px calc(50% + 20px - 150px), -50px calc(50% + 30px - 150px),
+          -300px 220px, -250px calc(220px + 20px), -350px calc(220px + 30px);
+      }
+      to {
+        background-position: 50% 50%, calc(0px + var(--dir)) calc(50% - 150px),
+          calc(50px + var(--dir)) calc(50% + 20px - 150px),
+          calc(-50px + var(--dir)) calc(50% + 30px - 150px),
+          calc(-300px + var(--dir)) 220px,
+          calc(-250px + var(--dir)) calc(220px + 20px),
+          calc(-350px + var(--dir)) calc(220px + 30px);
+      }
+    }
+  }
+  &:after {
+    --dir: -1200px;
+    left: auto;
+    right: 0;
+    transform-origin: right;
+    transform: rotateY(-80deg);
+    animation-delay: -0.75s;
+    --angle: 90deg;
+  }
+  div {
+    position: absolute;
+    top: calc(50% - 225px);
+    left: calc(50% - 300px);
+    width: 300px;
+    height: 450px;
+    background: #fff;
+    overflow: hidden;
+    -webkit-box-reflect: right -1px;
+    background: radial-gradient(ellipse at bottom right, $b 50%, $t 50%) 100%
+      25px / 240px 160px no-repeat;
+    animation: bun 2s ease-in-out infinite, fly 4s ease-in-out infinite;
+    transform: scale(0.75) rotate(0deg);
+    @keyframes fly {
+      25% {
+        transform: scale(0.5) rotate(10deg) translateX(100px);
+      }
+      75% {
+        transform: scale(0.8) rotate(-10deg);
+      }
+    }
+    @keyframes bun {
+      0% {
+        background-position: 100% 0px;
+      }
+      25% {
+        background-position: 100% 30px;
+      }
+      50% {
+        background-position: 100% 0px;
+      }
+      75% {
+        background-position: 100% 30px;
+      }
+      100% {
+        background-position: 100% 0px;
+      }
+    }
+    &:before {
+      animation: bend1 2s ease-in-out infinite,
+        float 4s ease-in-out infinite alternate;
+      @include topbun(2.5px);
+      background: $br;
+      z-index: 3;
+      --offset: 20;
+    }
+    &:after {
+      animation: bend2 2s ease-in-out infinite -0.125s,
+        float 4s ease-in-out infinite alternate -2s;
+      @include bottombun(2.5px);
+      background: $t;
+      --offset: 10;
+      z-index: 1;
+    }
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: 50%;
+      right: -20px;
+      border-radius: 100%;
+      transform-origin: 150px 50%;
+      @keyframes float {
+        from {
+          transform: translateY(calc(var(--offset) * 1px)) rotate(1.5deg);
+        }
+        to {
+          transform: translateY(calc(var(--offset) * -1px)) rotate(-1.5deg);
+        }
+      }
+      @keyframes bend1 {
+        25% {
+          @include topbun(-2.5px);
+        }
+        50% {
+          @include topbun(1.5px);
+        }
+        75% {
+          @include topbun(-2px);
+        }
+      }
+      @keyframes bend2 {
+        25% {
+          @include bottombun(-2.5px);
+        }
+        50% {
+          @include bottombun(1.5px);
+        }
+        75% {
+          @include bottombun(-2px);
+        }
+      }
+    }
+  }
+}
